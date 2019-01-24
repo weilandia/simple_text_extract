@@ -10,6 +10,9 @@ module FastTextExtract
       def initialize(file)
         @file = file
       end
+
+      def extract
+      end
     end
   end
 end

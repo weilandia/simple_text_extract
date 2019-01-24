@@ -8,7 +8,7 @@ require "fast_text_extract/format_extractor/doc"
 
 module FastTextExtract
   class FormatExtractorFactory
-    def self.call(file)
+    def self.call(file) # rubocop:disable Metrics/MethodLength
       case file.path
       when /.txt$/i
         FormatExtractor::PlainText.new(file)
@@ -18,6 +18,8 @@ module FastTextExtract
         FormatExtractor::DocX.new(file)
       when /.doc$/i
         FormatExtractor::Doc.new(file)
+      else
+        FormatExtractor::Base.new(file)
       end
     end
   end
