@@ -2,7 +2,7 @@
 
 require "shellwords"
 
-module FastTextExtract
+module SimpleTextExtract
   module FormatExtractor
     class Base
       attr_reader :file

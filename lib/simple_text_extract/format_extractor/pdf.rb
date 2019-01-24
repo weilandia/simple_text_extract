@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FastTextExtract
+module SimpleTextExtract
   module FormatExtractor
     class PDF < Base
       def extract

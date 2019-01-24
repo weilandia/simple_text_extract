@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FastTextExtract
+module SimpleTextExtract
   class TextExtractor
     def self.call(filename: nil, raw: nil, filepath: nil)
       if !filename.nil? && !raw.nil?

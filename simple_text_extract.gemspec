@@ -2,17 +2,17 @@
 
 lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "fast_text_extract/version"
+require "simple_text_extract/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "fast_text_extract"
-  spec.version       = FastTextExtract::VERSION
+  spec.name          = "simple_text_extract"
+  spec.version       = SimpleTextExtract::VERSION
   spec.authors       = ["Nick Weiland"]
   spec.email         = ["nickweiland@gmail.com"]
 
   spec.summary       = "Attempts to quickly extract text from various file types before resorting to something more extreme like Apache Tika."
   spec.description   = "Attempts to quickly extract text from various file types before resorting to something more extreme like Apache Tika. Built with ActiveStorage in mind."
-  spec.homepage      = "https://github.com/weilandia/fast_text_extract"
+  spec.homepage      = "https://github.com/weilandia/simple_text_extract"
   spec.license       = "MIT"
 
   # Specify which files should be added to the gem when it is released.

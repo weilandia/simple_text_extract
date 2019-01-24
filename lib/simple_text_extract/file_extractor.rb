@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FastTextExtract
+module SimpleTextExtract
   class FileExtractor < TextExtractor
     attr_reader :filepath
 

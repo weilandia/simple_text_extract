@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "fast_text_extract/format_extractor/base"
-require "fast_text_extract/format_extractor/plain_text"
-require "fast_text_extract/format_extractor/pdf"
-require "fast_text_extract/format_extractor/doc_x"
-require "fast_text_extract/format_extractor/doc"
+require "simple_text_extract/format_extractor/base"
+require "simple_text_extract/format_extractor/plain_text"
+require "simple_text_extract/format_extractor/pdf"
+require "simple_text_extract/format_extractor/doc_x"
+require "simple_text_extract/format_extractor/doc"
 
-module FastTextExtract
+module SimpleTextExtract
   class FormatExtractorFactory
     def self.call(file) # rubocop:disable Metrics/MethodLength
       case file.path

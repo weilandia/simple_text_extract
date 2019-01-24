@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fast_text_extract (0.1.0)
+    simple_text_extract (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -19,10 +19,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.17)
-  fast_text_extract!
   minitest (~> 5.0)
   pry
   rake (~> 10.0)
+  simple_text_extract!
 
 BUNDLED WITH
    1.17.2

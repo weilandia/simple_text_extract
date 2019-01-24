@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module FastTextExtract
+module SimpleTextExtract
   class TempfileExtractor < TextExtractor
     attr_reader :filename, :raw
 
