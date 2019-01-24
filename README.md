@@ -87,6 +87,8 @@ gnumeric
 | .xlsx       | 21.99s            | 51.89s                         |
 | .txt        | 0.036s            | 39.25s                         |
 
+* SimpleTextExtract is limited in its text extraction from pdfs, as Tika can also perform OCR on pdfs with Tesseract
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
