@@ -1,19 +1,25 @@
 # frozen_string_literal: true
 
-class FastTextExtract::TextExtractor
-  def self.call(filename:, raw_content:, filepath:)
-    new(filename: filename, raw_content: raw_content, filepath: filepath).extract
-  end
+module FastTextExtract
+  class TextExtractor
+    def self.call(filename: nil, raw: nil, filepath: nil)
+      if !filename.nil? && !raw.nil?
+        TempfileExtractor.new(filename: filename, raw: raw).extract
+      elsif !filepath.nil? && File.exist?(filepath)
+        FileExtractor.new(filepath: filepath).extract
+      end
+    end
 
-  attr_reader :filename, :raw_content, :filepath
+    def extract
+      text = FormatExtractorFactory.call(file).extract
+      cleanup
 
-  def initialize(filename:, raw_content:, filepath:)
-    @filename = filename
-    @raw_content = raw_content
-    @filepath = filepath
-  end
+      text
+    end
 
-  def extract
-    
+    private
+
+      def cleanup
+      end
   end
 end
