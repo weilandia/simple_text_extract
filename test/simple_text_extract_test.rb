@@ -73,4 +73,17 @@ class SimpleTextExtractTest < Minitest::Test
     assert_empty SimpleTextExtract.extract(filepath: "dksld")
     assert_empty SimpleTextExtract.extract(filename: "dksld.ppt", raw: "fkldsj")
   end
+
+  def test_returns_empty_when_dependencies_not_present
+    SimpleTextExtract::FormatExtractor::DocX.any_instance.stubs(:missing_dependency?).returns(true)
+    SimpleTextExtract::FormatExtractor::Doc.any_instance.stubs(:missing_dependency?).returns(true)
+    SimpleTextExtract::FormatExtractor::PDF.any_instance.stubs(:missing_dependency?).returns(true)
+    SimpleTextExtract::FormatExtractor::XlsX.any_instance.stubs(:missing_dependency?).returns(true)
+
+    assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_docx.docx")
+    assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_doc.doc")
+    assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_pdf.pdf")
+    assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx")
+    assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_xls.xls")
+  end
 end

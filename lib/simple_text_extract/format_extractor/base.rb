@@ -13,6 +13,11 @@ module SimpleTextExtract
 
       def extract
       end
+
+      def missing_dependency?(command)
+        dependency = `command -v #{command}`
+        dependency.nil? || dependency.empty?
+      end
     end
   end
 end

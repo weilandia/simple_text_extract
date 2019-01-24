@@ -4,7 +4,7 @@ module SimpleTextExtract
   module FormatExtractor
     class XlsX < Base
       def extract
-        return nil if `command -v ssconvert`.empty?
+        return nil if missing_dependency?("ssconvert")
 
         extract_filepath = "#{file.path.split(".")[0]}.txt"
 

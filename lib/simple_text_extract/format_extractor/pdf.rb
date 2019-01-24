@@ -4,7 +4,7 @@ module SimpleTextExtract
   module FormatExtractor
     class PDF < Base
       def extract
-        return nil if `command -v pdftotext`.empty?
+        return nil if missing_dependency?("pdftotext")
 
         `pdftotext #{Shellwords.escape(file.path)} -`
       end

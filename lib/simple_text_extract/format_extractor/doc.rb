@@ -4,7 +4,7 @@ module SimpleTextExtract
   module FormatExtractor
     class Doc < Base
       def extract
-        return nil if `command -v antiword`.empty?
+        return nil if missing_dependency?('antiword')
 
         `antiword #{Shellwords.escape(file.path)}`
       end
