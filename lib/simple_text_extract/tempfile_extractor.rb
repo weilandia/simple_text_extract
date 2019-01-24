@@ -6,7 +6,7 @@ module SimpleTextExtract
 
     def initialize(filename:, raw:)
       @filename = filename
-      @raw = raw
+      @raw = String.new(raw, encoding: Encoding::UTF_8)
 
       write_raw
     end
@@ -23,6 +23,7 @@ module SimpleTextExtract
       end
 
       def cleanup
+        file.close
         file.unlink
       end
 

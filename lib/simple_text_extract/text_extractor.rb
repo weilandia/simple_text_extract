@@ -4,7 +4,7 @@ module SimpleTextExtract
   class TextExtractor
     def self.call(filename: nil, raw: nil, filepath: nil)
       if !filename.nil? && !raw.nil?
-        TempfileExtractor.new(filename: filename.to_s, raw: raw.force_encoding("UTF-8")).extract
+        TempfileExtractor.new(filename: filename.to_s, raw: raw).extract
       elsif !filepath.nil? && File.exist?(filepath)
         FileExtractor.new(filepath: filepath).extract
       end
