@@ -1,15 +1,22 @@
 # SimpleTextExtract
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/simple_text_extract`. To experiment with that code, run `bin/console` for an interactive prompt.
+📄 SimpleTextExtract attempts extract text from various file types and is recommended as a guard before resorting to something more extreme like Apache Tika. It is built specifically with ActiveStorage in mind and originally built for the purpose of extracting text from attachments in order to index the text in ElasticSearch using [SearchKick](https://github.com/ankane/searchkick).
 
-TODO: Delete this and the text above, and describe your gem
+SimpleTextExtract handles parsing text from:
+
+- `.pdf`
+- `.docx`
+- `.doc`
+- `.txt` 😜
+
+If no text is parsed (for `pdf`), or a file format is not supported (like images), then `nil` is returned and you can move on to the heavy-duty tools like [Henkei](https://github.com/abrom/henkei) 💪.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'simple_text_extract'
+gem "simple_text_extract"
 ```
 
 And then execute:
@@ -22,7 +29,43 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Text can be parsed from raw file content or files in the filesystem t by calling `SimpleTextExtract.extract`:
+
+```ruby
+    # raw file content using ActiveStorage
+    SimpleTextExtract.extract(filename: attachment.blob.filename, raw: attachment.download)
+
+    # filesystem
+    SimpleTextExtract.extract(filepath: "path_to_file.pdf")
+```
+
+### Usage Dependencies
+
+You can choose to use SimpleTextExtract without the following dependencies, but it won't work for specific file types:
+
+`pdf` parsing requires `poppler-utils`
+- `brew install poppler`
+
+`doc` parsing requires `antiword`
+- `brew install antiword`
+
+### Usage on Heroku
+
+To use on Heroku you'll have to add some custom buildpacks.
+
+
+*heroku-buildpack-activestorage-preview*
+If you're using ActiveStorage, you might already have the [heroku-buildpack-activestorage-preview](https://github.com/heroku/heroku-buildpack-activestorage-preview) added, which means you already have `poppler-utils` installed 🎉
+
+If not, you can either add that buildpack, or add `poppler-utils` to your `Aptfile` (see below).
+
+*heroku-buildpack-apt*
+To add `antiword` as a dependency on Heroku, install the [heroku-buildpack-apt](https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-apt) buildpack and follow the install instructions.
+
+In your `Aptfile`, add:
+```
+antiword
+```
 
 ## Development
 
