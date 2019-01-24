@@ -75,6 +75,18 @@ antiword
 gnumeric
 ```
 
+## Benchmarks
+
+*Benchmarks test extracting text from the same file 50 times (Macbook pro)*
+
+| File format | SimpleTextExtract | Henkei (i.e. Yomu/Apache Tika) |
+|-------------|-------------------|--------------------------------|
+| .doc        | 1.40s             | 74.27s                         |
+| .docx       | 0.78s             | 71.44s                         |
+| .pdf*       | 1.73s             | 82.86s                         |
+| .xlsx       | 21.99s            | 51.89s                         |
+| .txt        | 0.036s            | 39.25s                         |
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
