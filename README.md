@@ -55,11 +55,13 @@ To use on Heroku you'll have to add some custom buildpacks.
 
 
 *heroku-buildpack-activestorage-preview*
+
 If you're using ActiveStorage, you might already have the [heroku-buildpack-activestorage-preview](https://github.com/heroku/heroku-buildpack-activestorage-preview) added, which means you already have `poppler-utils` installed 🎉
 
 If not, you can either add that buildpack, or add `poppler-utils` to your `Aptfile` (see below).
 
 *heroku-buildpack-apt*
+
 To add `antiword` as a dependency on Heroku, install the [heroku-buildpack-apt](https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-apt) buildpack and follow the install instructions.
 
 In your `Aptfile`, add:
