@@ -1,6 +1,6 @@
-# SimpleTextExtract
+# 📄 SimpleTextExtract
 
-📄 SimpleTextExtract attempts extract text from various file types and is recommended as a guard before resorting to something more extreme like Apache Tika. It is built specifically with ActiveStorage in mind and originally built for the purpose of extracting text from attachments in order to index the text in ElasticSearch using [SearchKick](https://github.com/ankane/searchkick).
+SimpleTextExtract attempts extract text from various file types and is recommended as a guard before resorting to something more extreme like Apache Tika. It is built specifically with ActiveStorage in mind and originally built for the purpose of extracting text from attachments in order to index the text in ElasticSearch using [SearchKick](https://github.com/ankane/searchkick).
 
 SimpleTextExtract handles parsing text from:
 
