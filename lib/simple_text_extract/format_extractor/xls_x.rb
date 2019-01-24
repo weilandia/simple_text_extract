@@ -4,16 +4,18 @@ module SimpleTextExtract
   module FormatExtractor
     class XlsX < Base
       def extract
-        return nil if missing_dependency?("ssconvert")
+        require "roo"
 
-        extract_filepath = "#{file.path.split(".")[0]}.txt"
+        spreadsheet = Roo::Spreadsheet.open(file)
 
-        `ssconvert -O 'separator=" "' #{Shellwords.escape(file.path)} #{extract_filepath}`
+        text = []
 
-        text = File.read(extract_filepath)
-        File.unlink(extract_filepath)
+        spreadsheet.each_with_pagename do |name, sheet|
+          text << name
+          1.upto(sheet.last_row) { |row| text << sheet.row(row) }
+        end
 
-        text
+        text.flatten.join(" ")
       end
     end
   end

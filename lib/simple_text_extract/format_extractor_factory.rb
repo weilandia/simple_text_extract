@@ -19,8 +19,10 @@ module SimpleTextExtract
         FormatExtractor::DocX.new(file)
       when /.doc$/i
         FormatExtractor::Doc.new(file)
-      when /(.xlsx$|.xls$)/i
+      when /.xlsx$/i
         FormatExtractor::XlsX.new(file)
+      when /.xls$/i
+        puts "Not implemented"
       else
         FormatExtractor::Base.new(file)
       end
