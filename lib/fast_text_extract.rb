@@ -10,6 +10,6 @@ module FastTextExtract
   class Error < StandardError; end
 
   def self.extract(filename: nil, raw: nil, filepath: nil)
-    TextExtractor.call(filename: filename, raw: raw, filepath: filepath)
+    TextExtractor.call(filename: filename, raw: raw, filepath: filepath).to_s
   end
 end

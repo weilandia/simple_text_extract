@@ -40,11 +40,21 @@ class FastTextExtractTest < Minitest::Test
     assert_includes FastTextExtract.extract(filename: "test_pdf.pdf", raw: File.read("test/fixtures/test_pdf.pdf")), "This is a small demonstration .pdf file"
   end
 
-  def test_it_returns_nil_if_filetype_not_supported
+  def test_it_returns_empty_if_filetype_not_supported
     ["test_jpg.jpg", "test_png.png"].each do |filename|
-      assert_nil FastTextExtract.extract(filepath: "test/fixtures/#{filename}")
+      assert_empty FastTextExtract.extract(filepath: "test/fixtures/#{filename}")
 
-      assert_nil FastTextExtract.extract(filename: filename, raw: File.read("test/fixtures/#{filename}"))
+      assert_empty FastTextExtract.extract(filename: filename, raw: File.read("test/fixtures/#{filename}"))
     end
+  end
+
+  def test_returns_empty_if_nothing_passed_in
+    assert_empty FastTextExtract.extract
+  end
+
+  def test_returns_empty_if_nonsense_is_passed_in
+    assert_empty FastTextExtract.extract(filepath: "dksld/fkjlds.txt")
+    assert_empty FastTextExtract.extract(filepath: "dksld")
+    assert_empty FastTextExtract.extract(filename: "dksld.ppt", raw: "fkldsj")
   end
 end
