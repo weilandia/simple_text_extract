@@ -7,6 +7,8 @@ SimpleTextExtract handles parsing text from:
 - `.pdf`
 - `.docx`
 - `.doc`
+- `.xlsx`
+- `.xls`
 - `.txt` 😜
 
 If no text is parsed (for `pdf`), or a file format is not supported (like images), then `nil` is returned and you can move on to the heavy-duty tools like [Henkei](https://github.com/abrom/henkei) 💪.
@@ -32,11 +34,11 @@ Or install it yourself as:
 Text can be parsed from raw file content or files in the filesystem t by calling `SimpleTextExtract.extract`:
 
 ```ruby
-    # raw file content using ActiveStorage
-    SimpleTextExtract.extract(filename: attachment.blob.filename, raw: attachment.download)
+# raw file content using ActiveStorage
+SimpleTextExtract.extract(filename: attachment.blob.filename, raw: attachment.download)
 
-    # filesystem
-    SimpleTextExtract.extract(filepath: "path_to_file.pdf")
+# filesystem
+SimpleTextExtract.extract(filepath: "path_to_file.pdf")
 ```
 
 ### Usage Dependencies
@@ -48,6 +50,9 @@ You can choose to use SimpleTextExtract without the following dependencies, but 
 
 `doc` parsing requires `antiword`
 - `brew install antiword`
+
+`xlsx` and `xls` parsing requires `ssconvert` which is part of `gnumeric`
+- `brew install gnumeric`
 
 ### Usage on Heroku
 
@@ -67,6 +72,7 @@ To add `antiword` as a dependency on Heroku, install the [heroku-buildpack-apt](
 In your `Aptfile`, add:
 ```
 antiword
+gnumeric
 ```
 
 ## Development

@@ -40,6 +40,22 @@ class SimpleTextExtractTest < Minitest::Test
     assert_includes SimpleTextExtract.extract(filename: "test_pdf.pdf", raw: File.read("test/fixtures/test_pdf.pdf")), "This is a small demonstration .pdf file"
   end
 
+  def test_it_parses_xlsx_files_to_text_from_path
+    assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx"), "ruby 25\njs 35\n"
+  end
+
+  def test_it_parses_xlsx_files_to_text_from_raw
+    assert_includes SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx")), "ruby 25\njs 35\n"
+  end
+
+  def test_it_parses_xls_files_to_text_from_path
+    assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xls.xls"), "What C datatypes are 8 bits? (assume i386)"
+  end
+
+  def test_it_parses_xls_files_to_text_from_raw
+    assert_includes SimpleTextExtract.extract(filename: "test_xls.xls", raw: File.read("test/fixtures/test_xls.xls")), "What C datatypes are 8 bits? (assume i386)"
+  end
+
   def test_it_returns_empty_if_filetype_not_supported
     ["test_jpg.jpg", "test_png.png"].each do |filename|
       assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/#{filename}")
