@@ -75,7 +75,7 @@ antiword
 gnumeric
 ```
 
-* There is currently an [issue](https://github.com/heroku/heroku-buildpack-google-chrome/issues/59) with the heroku-18 stack that requires additional dependencies added to the Aptfile to get `gnumeric` to work properly.  You cna reference the linked issue above to figure those dependencies out, or downgrade to heroku-16 until it is fixed.
+* There is currently an [issue](https://github.com/heroku/heroku-buildpack-google-chrome/issues/59) with the heroku-18 stack that requires additional dependencies added to the Aptfile to get `gnumeric` to work properly.  You can reference the linked issue above to figure out those dependencies, or downgrade to heroku-16 until it is fixed.
 
 ## Benchmarks
 
