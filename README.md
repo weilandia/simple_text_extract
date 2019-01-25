@@ -51,6 +51,9 @@ You can choose to use SimpleTextExtract without the following dependencies, but 
 `doc` parsing requires `antiword`
 - `brew install antiword`
 
+`xlsx` and `xls` parsing requires `ssconvert` which is part of `gnumeric`
+- `brew install gnumeric`
+
 ### Usage on Heroku
 
 To use on Heroku you'll have to add some custom buildpacks.
@@ -64,12 +67,15 @@ If not, you can either add that buildpack, or add `poppler-utils` to your `Aptfi
 
 ##### heroku-buildpack-apt
 
-To add `antiword` as a dependency on Heroku, install the [heroku-buildpack-apt](https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-apt) buildpack and follow the install instructions.
+To add `antiword` and/or `gnumeric`* as a dependency on Heroku, install the [heroku-buildpack-apt](https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-apt) buildpack and follow the install instructions.
 
 In your `Aptfile`, add:
 ```
 antiword
+gnumeric
 ```
+
+* There is currently an [issue](https://github.com/heroku/heroku-buildpack-google-chrome/issues/59) with the heroku-18 stack that requires additional dependencies added to the Aptfile to get `gnumeric` to work properly.  You can reference the linked issue above to figure out those dependencies, or downgrade to heroku-16 until it is fixed.
 
 ## Benchmarks
 
@@ -80,14 +86,17 @@ antiword
 | .doc        | 1.40s             | 74.27s                         |
 | .docx       | 0.78s             | 71.44s                         |
 | .pdf*       | 1.73s             | 82.86s                         |
-| .xlsx       | 21.99s            | 51.89s                         |
-| .txt        | 0.036s            | 39.25s                         |
+| .xlsx       | 1.16s             | 51.89s                         |
+| .xls        | 0.80s             | 67.88s                         |
+| .txt        | 0.04s             | 39.25s                         |
 
 * SimpleTextExtract is limited in its text extraction from pdfs, as Tika can also perform OCR on pdfs with Tesseract
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
