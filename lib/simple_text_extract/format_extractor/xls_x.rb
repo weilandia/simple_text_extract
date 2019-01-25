@@ -12,7 +12,7 @@ module SimpleTextExtract
 
         spreadsheet.each_with_pagename do |name, sheet|
           text << name
-          1.upto(sheet.last_row) { |row| text << sheet.row(row) }
+          1.upto(sheet.last_row.to_i) { |row| text << sheet.row(row) }
         end
 
         text.flatten.join(" ")

@@ -4,6 +4,7 @@ require "simple_text_extract/format_extractor/base"
 require "simple_text_extract/format_extractor/plain_text"
 require "simple_text_extract/format_extractor/pdf"
 require "simple_text_extract/format_extractor/xls_x"
+require "simple_text_extract/format_extractor/xls"
 require "simple_text_extract/format_extractor/doc_x"
 require "simple_text_extract/format_extractor/doc"
 
@@ -22,7 +23,7 @@ module SimpleTextExtract
       when /.xlsx$/i
         FormatExtractor::XlsX.new(file)
       when /.xls$/i
-        puts "Not implemented"
+        FormatExtractor::Xls.new(file)
       else
         FormatExtractor::Base.new(file)
       end
