@@ -41,11 +41,11 @@ class SimpleTextExtractTest < Minitest::Test
   end
 
   def test_it_parses_xlsx_files_to_text_from_path
-    assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx"), "ruby 25\njs 35\n"
+    assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx"), "Sheet1 ruby 25 Sheet2 js 35"
   end
 
   def test_it_parses_xlsx_files_to_text_from_raw
-    assert_includes SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx")), "ruby 25\njs 35\n"
+    assert_includes SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx")), "Sheet1 ruby 25 Sheet2 js 35"
   end
 
   def test_it_parses_xls_files_to_text_from_path
@@ -78,12 +78,9 @@ class SimpleTextExtractTest < Minitest::Test
     SimpleTextExtract::FormatExtractor::DocX.any_instance.stubs(:missing_dependency?).returns(true)
     SimpleTextExtract::FormatExtractor::Doc.any_instance.stubs(:missing_dependency?).returns(true)
     SimpleTextExtract::FormatExtractor::PDF.any_instance.stubs(:missing_dependency?).returns(true)
-    SimpleTextExtract::FormatExtractor::XlsX.any_instance.stubs(:missing_dependency?).returns(true)
 
     assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_docx.docx")
     assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_doc.doc")
     assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_pdf.pdf")
-    assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx")
-    assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_xls.xls")
   end
 end
