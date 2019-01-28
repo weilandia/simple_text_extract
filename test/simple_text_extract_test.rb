@@ -8,6 +8,19 @@ class SimpleTextExtractTest < Minitest::Test
     refute_nil ::SimpleTextExtract::VERSION
   end
 
+  def test_supports
+    assert SimpleTextExtract.supports?(filename: "example.xls")
+    assert SimpleTextExtract.supports?(filename: "example.xlsx")
+    assert SimpleTextExtract.supports?(filename: "example.docx")
+    assert SimpleTextExtract.supports?(filename: "example.doc")
+    assert SimpleTextExtract.supports?(filename: "example.pdf")
+    assert SimpleTextExtract.supports?(filename: "example.txt")
+
+    refute SimpleTextExtract.supports?(filename: "example.jpg")
+    refute SimpleTextExtract.supports?(filename: "example.png")
+    refute SimpleTextExtract.supports?(filename: "example.whatever")
+  end
+
   def test_it_parses_txt_files_to_text_from_path
     assert_equal File.read("test/fixtures/test_txt.txt"), SimpleTextExtract.extract(filepath: "test/fixtures/test_txt.txt")
   end
@@ -47,6 +60,11 @@ class SimpleTextExtractTest < Minitest::Test
   def test_it_parses_xlsx_files_to_text_from_raw
     assert_includes SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx")), "Sheet1 ruby 25 Sheet2 js 35"
   end
+
+  # uncomment after https://github.com/roo-rb/roo/pull/492
+  # def test_nil_to_integer
+  #   assert_includes SimpleTextExtract.extract(filename: "roo_bad_link.xlsx", raw: File.read("test/fixtures/roo_bad_link.xlsx")), "Sheet1 ruby 25 Sheet2 js 35"
+  # end
 
   def test_it_parses_xls_files_to_text_from_path
     assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xls.xls"), "What C datatypes are 8 bits? (assume i386)"
