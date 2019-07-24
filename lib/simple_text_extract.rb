@@ -7,7 +7,7 @@ require "simple_text_extract/tempfile_extractor"
 require "simple_text_extract/format_extractor_factory"
 
 module SimpleTextExtract
-  SUPPORTED_FILETYPES = ["xls", "xlsx", "doc", "docx", "txt", "pdf"]
+  SUPPORTED_FILETYPES = ["xls", "xlsx", "doc", "docx", "txt", "pdf"].freeze
 
   class Error < StandardError; end
 

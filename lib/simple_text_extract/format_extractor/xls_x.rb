@@ -6,7 +6,7 @@ module SimpleTextExtract
       def extract
         require "roo"
 
-        spreadsheet = Roo::Spreadsheet.open(file)
+        spreadsheet = Roo::Spreadsheet.open(file, only_visible_sheets: true)
 
         text = []
 

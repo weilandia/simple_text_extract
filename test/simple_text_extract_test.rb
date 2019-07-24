@@ -57,8 +57,8 @@ class SimpleTextExtractTest < Minitest::Test
     assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx"), "Sheet1 ruby 25 Sheet2 js 35"
   end
 
-  def test_it_parses_xlsx_files_to_text_from_raw
-    assert_includes SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx")), "Sheet1 ruby 25 Sheet2 js 35"
+  def test_it_parses_xlsx_files_to_text_from_raw_excludes_hidden
+    assert_equal SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx")), "Sheet1 ruby 25 Sheet2 js 35"
   end
 
   # uncomment after https://github.com/roo-rb/roo/pull/492

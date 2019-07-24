@@ -10,7 +10,7 @@ require "simple_text_extract/format_extractor/doc"
 
 module SimpleTextExtract
   class FormatExtractorFactory
-    def self.call(file) # rubocop:disable Metrics/MethodLength
+    def self.call(file) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
       case file.path
       when /.txt$/i
         FormatExtractor::PlainText.new(file)

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_text_extract (0.2.0)
+    simple_text_extract (0.2.1)
       roo (~> 2.8)
       spreadsheet (~> 1.1.8)
 
@@ -15,18 +15,18 @@ GEM
     minitest (5.11.3)
     mocha (1.8.0)
       metaclass (~> 0.0.1)
-    nokogiri (1.10.1)
+    nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     rake (10.5.0)
-    roo (2.8.1)
+    roo (2.8.2)
       nokogiri (~> 1)
       rubyzip (>= 1.2.1, < 2.0.0)
-    ruby-ole (1.2.12.1)
-    rubyzip (1.2.2)
-    spreadsheet (1.1.8)
+    ruby-ole (1.2.12.2)
+    rubyzip (1.2.3)
+    spreadsheet (1.1.9)
       ruby-ole (>= 1.0)
 
 PLATFORMS
