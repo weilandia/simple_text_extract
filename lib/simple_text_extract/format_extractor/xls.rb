@@ -8,7 +8,6 @@ module SimpleTextExtract
 
         spreadsheet = Spreadsheet.open(file)
         text = []
-
         spreadsheet.worksheets.each do |sheet|
           text << sheet.name
           text << sheet.rows

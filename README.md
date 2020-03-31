@@ -34,11 +34,13 @@ Or install it yourself as:
 Text can be parsed from raw file content or files in the filesystem t by calling `SimpleTextExtract.extract`:
 
 ```ruby
-# raw file content using ActiveStorage
-SimpleTextExtract.extract(filename: attachment.blob.filename, raw: attachment.download)
+# using ActiveStorage >= 6
+extract = attachment.open { |tmp| SimpleTextExtract.extract(tempfile: tmp) }
+# raw file content or when ActiveStorage < 6
+extract = SimpleTextExtract.extract(filename: attachment.blob.filename, raw: attachment.download)
 
 # filesystem
-SimpleTextExtract.extract(filepath: "path_to_file.pdf")
+extract = SimpleTextExtract.extract(filepath: "path_to_file.pdf")
 ```
 
 ### Usage Dependencies

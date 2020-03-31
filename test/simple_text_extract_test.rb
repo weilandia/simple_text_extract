@@ -1,9 +1,17 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "pry"
 
 class SimpleTextExtractTest < Minitest::Test
+  def tempfile(path)
+    raw = File.read(path)
+    filename = path.split(".").yield_self { |parts| [parts[0], ".#{parts[1]}"] }
+    file = Tempfile.new(filename)
+
+    file.write(raw)
+    file.tap(&:rewind)
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::SimpleTextExtract::VERSION
   end
@@ -29,12 +37,22 @@ class SimpleTextExtractTest < Minitest::Test
     assert_equal File.read("test/fixtures/test_txt.txt"), SimpleTextExtract.extract(filename: "test_txt.txt", raw: File.read("test/fixtures/test_txt.txt"))
   end
 
+  def test_it_parses_txt_files_to_text_from_tempfile
+    result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_txt.txt"))
+    assert_equal File.read("test/fixtures/test_txt.txt"), result
+  end
+
   def test_it_parses_doc_files_to_text_from_path
     assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_doc.doc"), "This is a regular paragraph with the default style of Normal."
   end
 
   def test_it_parses_doc_files_to_text_from_raw
     assert_includes SimpleTextExtract.extract(filename: "test_doc.doc", raw: File.read("test/fixtures/test_doc.doc")), "This is a regular paragraph with the default style of Normal."
+  end
+
+  def test_it_parses_doc_files_to_text_from_tempfile
+    result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_doc.doc"))
+    assert_includes result, "This is a regular paragraph with the default style of Normal."
   end
 
   def test_it_parses_docx_files_to_text_from_path
@@ -45,6 +63,11 @@ class SimpleTextExtractTest < Minitest::Test
     assert_equal "test\r\n", SimpleTextExtract.extract(filename: "test_docx.docx", raw: File.read("test/fixtures/test_docx.docx"))
   end
 
+  def test_it_parses_docx_files_to_text_from_tempfile
+    result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_docx.docx"))
+    assert_equal "test\r\n", result
+  end
+
   def test_it_parses_pdf_files_to_text_from_path
     assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_pdf.pdf"), "This is a small demonstration .pdf file"
   end
@@ -53,18 +76,27 @@ class SimpleTextExtractTest < Minitest::Test
     assert_includes SimpleTextExtract.extract(filename: "test_pdf.pdf", raw: File.read("test/fixtures/test_pdf.pdf")), "This is a small demonstration .pdf file"
   end
 
+  def test_it_parses_pdf_files_to_text_from_tempfile
+    result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_pdf.pdf"))
+    assert_includes result, "This is a small demonstration .pdf file"
+  end
+
   def test_it_parses_xlsx_files_to_text_from_path
     assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx"), "Sheet1 ruby 25 Sheet2 js 35"
+  end
+
+  def test_it_parses_xlsx_files_to_text_from_tempfile
+    result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_xlsx.xlsx"))
+    assert_equal "Sheet1 ruby 25 Sheet2 js 35", result
   end
 
   def test_it_parses_xlsx_files_to_text_from_raw_excludes_hidden
     assert_equal SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx")), "Sheet1 ruby 25 Sheet2 js 35"
   end
 
-  # uncomment after https://github.com/roo-rb/roo/pull/492
-  # def test_nil_to_integer
-  #   assert_includes SimpleTextExtract.extract(filename: "roo_bad_link.xlsx", raw: File.read("test/fixtures/roo_bad_link.xlsx")), "Sheet1 ruby 25 Sheet2 js 35"
-  # end
+  def test_nil_to_integer
+    assert_equal "bad_link Test", SimpleTextExtract.extract(filename: "roo_bad_link.xlsx", raw: File.read("test/fixtures/roo_bad_link.xlsx"))
+  end
 
   def test_it_parses_xls_files_to_text_from_path
     assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xls.xls"), "What C datatypes are 8 bits? (assume i386)"
@@ -72,6 +104,11 @@ class SimpleTextExtractTest < Minitest::Test
 
   def test_it_parses_xls_files_to_text_from_raw
     assert_includes SimpleTextExtract.extract(filename: "test_xls.xls", raw: File.read("test/fixtures/test_xls.xls")), "What C datatypes are 8 bits? (assume i386)"
+  end
+
+  def test_it_parses_xls_files_to_text_from_tempfile
+    result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_xls.xls"))
+    assert_includes result, "What C datatypes are 8 bits? (assume i386)"
   end
 
   def test_it_returns_empty_if_filetype_not_supported
