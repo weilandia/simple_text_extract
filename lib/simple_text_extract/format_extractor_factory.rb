@@ -12,7 +12,7 @@ module SimpleTextExtract
   class FormatExtractorFactory
     def self.call(file) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
       case file.path
-      when /.txt$/i
+      when /(.txt$|.csv$)/i
         FormatExtractor::PlainText.new(file)
       when /.pdf$/i
         FormatExtractor::PDF.new(file)

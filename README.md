@@ -9,6 +9,7 @@ SimpleTextExtract handles parsing text from:
 - `.doc`
 - `.xlsx`
 - `.xls`
+- `.csv`
 - `.txt` 😜
 
 If no text is parsed (for `pdf`), or a file format is not supported (like images), then `nil` is returned and you can move on to the heavy-duty tools like [Henkei](https://github.com/abrom/henkei) 💪.
