@@ -26,9 +26,12 @@ module SimpleTextExtract
 
       def extract
         return unless file
+        return unless file
 
         begin
           FormatExtractorFactory.call(file).extract
+        rescue StandardError
+          nil
         ensure
           cleanup
         end

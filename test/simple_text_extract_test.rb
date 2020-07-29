@@ -83,6 +83,8 @@ class SimpleTextExtractTest < Minitest::Test
 
   def test_it_parses_xlsx_files_to_text_from_path
     assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx"), "Sheet1 ruby 25 Sheet2 js 35"
+
+    assert_equal "", SimpleTextExtract.extract(tempfile: Tempfile.new(["", "blank.xlsx"]))
   end
 
   def test_it_parses_xlsx_files_to_text_from_tempfile
