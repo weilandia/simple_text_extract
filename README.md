@@ -51,7 +51,7 @@ You can choose to use SimpleTextExtract without the following dependencies, but 
 `pdf` parsing requires `poppler-utils`
 - `brew install poppler`
 
-`doc` parsing requires `antiword`
+`doc` parsing requires `antiword` and `unzip`
 - `brew install antiword`
 
 `xlsx` and `xls` parsing requires `ssconvert` which is part of `gnumeric`
@@ -76,6 +76,7 @@ In your `Aptfile`, add:
 ```
 antiword
 gnumeric
+unzip
 ```
 
 * There is currently an [issue](https://github.com/heroku/heroku-buildpack-google-chrome/issues/59) with the heroku-18 stack that requires additional dependencies added to the Aptfile to get `gnumeric` to work properly.  You can reference the linked issue above to figure out those dependencies, or downgrade to heroku-16 until it is fixed.
