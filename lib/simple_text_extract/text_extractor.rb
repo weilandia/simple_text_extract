@@ -26,7 +26,6 @@ module SimpleTextExtract
 
       def extract
         return unless file
-        return unless file
 
         begin
           FormatExtractorFactory.call(file).extract
@@ -38,7 +37,7 @@ module SimpleTextExtract
       end
 
       def cleanup
-        return unless file.class == Tempfile
+        return unless file.instance_of?(Tempfile)
 
         file.close
         file.unlink

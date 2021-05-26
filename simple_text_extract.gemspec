@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "roo", "~> 2.8.2"
   spec.add_runtime_dependency "spreadsheet", "~> 1.1.8"
+  spec.add_runtime_dependency "rubyzip", ">= 1.0.0"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "minitest", "~> 5.0"

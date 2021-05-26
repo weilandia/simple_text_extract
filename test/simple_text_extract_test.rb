@@ -23,6 +23,7 @@ class SimpleTextExtractTest < Minitest::Test
     assert SimpleTextExtract.supports?(filename: "example.doc")
     assert SimpleTextExtract.supports?(filename: "example.pdf")
     assert SimpleTextExtract.supports?(filename: "example.txt")
+    assert SimpleTextExtract.supports?(filename: "example.zip")
 
     refute SimpleTextExtract.supports?(filename: "example.jpg")
     refute SimpleTextExtract.supports?(filename: "example.png")
@@ -111,6 +112,20 @@ class SimpleTextExtractTest < Minitest::Test
   def test_it_parses_xls_files_to_text_from_tempfile
     result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_xls.xls"))
     assert_includes result, "What C datatypes are 8 bits? (assume i386)"
+  end
+
+  def test_it_parses_zip_files_to_text_from_raw
+    result = SimpleTextExtract.extract(filename: "test_zip.zip", raw: File.read("test/fixtures/test_zip.zip"))
+
+    assert_includes result, "What C datatypes are 8 bits? (assume i386)"
+    assert_includes result, File.read("test/fixtures/test_txt.txt")
+  end
+
+  def test_it_parses_zip_files_to_text_from_tempfile
+    result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_zip.zip"))
+
+    assert_includes result, "What C datatypes are 8 bits? (assume i386)"
+    assert_includes result, File.read("test/fixtures/test_txt.txt")
   end
 
   def test_it_returns_empty_if_filetype_not_supported

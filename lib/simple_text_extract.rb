@@ -5,7 +5,7 @@ require "simple_text_extract/text_extractor"
 require "simple_text_extract/format_extractor_factory"
 
 module SimpleTextExtract
-  SUPPORTED_FILETYPES = ["xls", "xlsx", "doc", "docx", "txt", "pdf", "csv"].freeze
+  SUPPORTED_FILETYPES = ["xls", "xlsx", "doc", "docx", "txt", "pdf", "csv", "zip"].freeze
 
   class Error < StandardError; end
 

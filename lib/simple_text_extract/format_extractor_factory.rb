@@ -7,11 +7,14 @@ require "simple_text_extract/format_extractor/xls_x"
 require "simple_text_extract/format_extractor/xls"
 require "simple_text_extract/format_extractor/doc_x"
 require "simple_text_extract/format_extractor/doc"
+require "simple_text_extract/format_extractor/zip_extract"
 
 module SimpleTextExtract
   class FormatExtractorFactory
-    def self.call(file) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+    def self.call(file)
       case file.path
+      when /.zip$/i
+        FormatExtractor::ZipExtract.new(file)
       when /(.txt$|.csv$)/i
         FormatExtractor::PlainText.new(file)
       when /.pdf$/i
