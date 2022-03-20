@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.requirements << "pdftotext/poppler"
   spec.required_ruby_version = ">= 2.5"
 
-  spec.add_runtime_dependency "roo", "~> 2.8.3"
+  spec.add_runtime_dependency "roo", "~> 2.9.0"
   spec.add_runtime_dependency "spreadsheet", "~> 1.3.0"
   spec.add_runtime_dependency "rubyzip", "~> 2.3.2"
 
