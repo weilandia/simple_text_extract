@@ -4,15 +4,15 @@ module SimpleTextExtract
   module FormatExtractor
     class XlsX < Base
       def extract
-        require "roo"
-
-        spreadsheet = Roo::Spreadsheet.open(file, only_visible_sheets: true)
-
+        require 'creek'
+        creek = Creek::Book.new(file)
         text = []
 
-        spreadsheet.each_with_pagename do |name, sheet|
-          text << name
-          1.upto(sheet.last_row.to_i) { |row| text << sheet.row(row) }
+        creek.sheets.each do |sheet|
+          next if sheet.state == 'hidden'
+
+          text << sheet.name
+          sheet.rows.each { |row| text << row.values }
         end
 
         text.flatten.join(" ")
