@@ -12,6 +12,12 @@ require "simple_text_extract/format_extractor/zip_extract"
 module SimpleTextExtract
   class FormatExtractorFactory
     def self.call(file)
+      path = file.path
+      filetype = path.split(".").last
+
+      if SimpleTextExtract.cloud_support?(filetype:)
+      end
+
       case file.path
       when /.zip$/i
         FormatExtractor::ZipExtract.new(file)

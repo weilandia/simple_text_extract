@@ -8,8 +8,8 @@ module SimpleTextExtract
       @file = get_file(filename: filename, raw: raw, filepath: filepath, tempfile: tempfile)
     end
 
-    def to_s
-      @to_s ||= extract.to_s
+    def to_h
+      @to_h ||= extract.to_h
     end
 
     private
@@ -28,7 +28,7 @@ module SimpleTextExtract
         return unless file
 
         begin
-          FormatExtractorFactory.call(file).extract
+          FormatExtractorFactory.call(file)
         rescue StandardError
           nil
         ensure
