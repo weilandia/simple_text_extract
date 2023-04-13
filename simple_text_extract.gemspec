@@ -9,13 +9,11 @@ Gem::Specification.new do |spec|
   spec.version       = SimpleTextExtract::VERSION
   spec.authors       = ["Nick Weiland"]
   spec.email         = ["nickweiland@gmail.com"]
-
-  spec.summary       = "Attempts to quickly extract text from various file types before resorting to something more extreme like Apache Tika."
-  spec.description   = "Attempts to quickly extract text from various file types before resorting to something more extreme like Apache Tika. Built with ActiveStorage in mind."
+  spec.summary       = "Extract text from various file types before resorting to an OCR solution."
+  spec.description   = "Extract text from various file types before resorting to an OCR solution."
   spec.homepage      = "https://github.com/weilandia/simple_text_extract"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 3.1")
-
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
