@@ -1,8 +1,8 @@
 # 📄 SimpleTextExtract
 
-SimpleTextExtract attempts extract text from various file types and is recommended as a guard before resorting to something more extreme like Apache Tika. It is built specifically with ActiveStorage in mind and originally built for the purpose of extracting text from attachments in order to index the text in ElasticSearch using [SearchKick](https://github.com/ankane/searchkick).
+SimpleTextExtract attempts extract text from various file types and is recommended as a guard before resorting to something more extreme like Apache Tika. It is built specifically with ActiveStorage in mind and originally built for the purpose of extracting text from attachments in order to index the text in ElasticSearch.
 
-SimpleTextExtract handles parsing text from:
+SimpleTextExtract andlhes parsing text from:
 
 - `.pdf`
 - `.docx`
@@ -12,7 +12,7 @@ SimpleTextExtract handles parsing text from:
 - `.csv`
 - `.txt` 😜
 
-If no text is parsed (for `pdf`), or a file format is not supported (like images), then `nil` is returned and you can move on to the heavy-duty tools like [Henkei](https://github.com/abrom/henkei) 💪.
+If no text is parsed (for `pdf`), or a file format is not supported (like images), then `""` is returned and you can move on to try an OCR solution. For example, at [Govly](www.govly.com) use SimpleTextExtract before sending files to [AWS Textract](https://aws.amazon.com/textract/).
 
 ## Installation
 
@@ -35,13 +35,22 @@ Or install it yourself as:
 Text can be parsed from raw file content or files in the filesystem t by calling `SimpleTextExtract.extract`:
 
 ```ruby
-# using ActiveStorage >= 6
-extract = attachment.open { |tmp| SimpleTextExtract.extract(tempfile: tmp) }
-# raw file content or when ActiveStorage < 6
-extract = SimpleTextExtract.extract(filename: attachment.blob.filename, raw: attachment.download)
-
 # filesystem
 extract = SimpleTextExtract.extract(filepath: "path_to_file.pdf")
+
+# raw
+extract = SimpleTextExtract.extract(filename: "some_file.raw", raw: "raw contents")
+
+# tempfile
+extract = SimpleTextExtract.extract(tempfile: temp_file)
+
+
+
+# using ActiveStorage >= 6
+extract = attachment.open { |tmp| SimpleTextExtract.extract(tempfile: tmp) }
+
+# raw file content or when ActiveStorage < 6
+extract = SimpleTextExtract.extract(filename: attachment.blob.filename, raw: attachment.download)
 ```
 
 ### Usage Dependencies
@@ -49,25 +58,11 @@ extract = SimpleTextExtract.extract(filepath: "path_to_file.pdf")
 You can choose to use SimpleTextExtract without the following dependencies, but it won't work for specific file types:
 
 `pdf` parsing requires `poppler-utils`
-- `brew install poppler`
-
 `doc` parsing requires `antiword`
+
+#### Install deps on MacOS
+- `brew install poppler`
 - `brew install antiword`
-
-## Benchmarks
-
-*Benchmarks test extracting text from the same file 50 times (Macbook pro)*
-
-| File format | SimpleTextExtract | Henkei (i.e. Yomu/Apache Tika) |
-|-------------|-------------------|--------------------------------|
-| .doc        | 1.40s             | 74.27s                         |
-| .docx       | 0.78s             | 71.44s                         |
-| .pdf*       | 1.73s             | 82.86s                         |
-| .xlsx       | 1.16s             | 51.89s                         |
-| .xls        | 0.80s             | 67.88s                         |
-| .txt        | 0.04s             | 39.25s                         |
-
-* SimpleTextExtract is limited in its text extraction from pdfs, as Tika can also perform OCR on pdfs with Tesseract
 
 ## Development
 
