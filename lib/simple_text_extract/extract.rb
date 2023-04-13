@@ -117,9 +117,22 @@ class SimpleTextExtract::Extract
     end
 
     def docx_extract
-      return nil if SimpleTextExtract.missing_dependency?("unzip")
+      require "zip"
+      require "nokogiri"
 
-      `unzip -p #{Shellwords.escape(file.path)} | grep '<w:t' | sed 's/<[^<]*>//g' | grep -v '^[[:space:]]*$'`
+      result = []
+      Zip::File.open(file) do |zip_file|
+        document = zip_file.glob("word/document*.xml").first
+        return "" if document.nil?
+
+        document_xml = document.get_input_stream.read
+        doc = Nokogiri::XML(document_xml)
+        doc.xpath("//w:document//w:body/w:p").each do |node|
+          result << node.text
+        end
+      end
+
+      result.join("\n")
     end
 
     def zip_extract

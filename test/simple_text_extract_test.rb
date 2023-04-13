@@ -57,16 +57,16 @@ class SimpleTextExtractTest < Minitest::Test
   end
 
   def test_it_parses_docx_files_to_text_from_path
-    assert_equal "test", SimpleTextExtract.extract(filepath: "test/fixtures/test_docx.docx")
+    assert_equal "Test\nLine 3", SimpleTextExtract.extract(filepath: "test/fixtures/test_docx.docx")
   end
 
   def test_it_parses_docx_files_to_text_from_raw
-    assert_equal "test", SimpleTextExtract.extract(filename: "test_docx.docx", raw: File.read("test/fixtures/test_docx.docx"))
+    assert_equal "Test\nLine 3", SimpleTextExtract.extract(filename: "test_docx.docx", raw: File.read("test/fixtures/test_docx.docx"))
   end
 
   def test_it_parses_docx_files_to_text_from_tempfile
     result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_docx.docx"))
-    assert_equal "test", result
+    assert_equal "Test\nLine 3", result
   end
 
   def test_it_parses_pdf_files_to_text_from_path
@@ -149,7 +149,6 @@ class SimpleTextExtractTest < Minitest::Test
   def test_returns_empty_when_dependencies_not_present
     SimpleTextExtract.stubs(:missing_dependency?).returns(true)
 
-    assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_docx.docx")
     assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_doc.doc")
     assert_empty SimpleTextExtract.extract(filepath: "test/fixtures/test_pdf.pdf")
   end
