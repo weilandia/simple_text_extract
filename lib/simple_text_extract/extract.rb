@@ -88,10 +88,13 @@ class SimpleTextExtract::Extract
 
       text = []
 
-      spreadsheet.sheets.each do |name|
-        text << name
+      spreadsheet.sheets.each_with_index do |name, i|
+        text << "# Sheet Index: #{i}"
+        text << "# Sheet Name: #{name}"
 
-        spreadsheet.sheet(name)&.each_row_streaming { |row| text << row.join(" ") }
+        spreadsheet.sheet(name)&.each_row_streaming do |row|
+          text << row.filter(&:present?).join(" ")
+        end
       end
 
       text.join("\n")

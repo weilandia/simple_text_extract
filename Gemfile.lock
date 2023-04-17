@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    simple_text_extract (3.0.0)
+    simple_text_extract (3.0.1)
       roo (~> 2.10.0)
       rubyzip (~> 2.3.2)
       spreadsheet (~> 1.3.0)

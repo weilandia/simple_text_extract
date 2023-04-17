@@ -83,22 +83,29 @@ class SimpleTextExtractTest < Minitest::Test
   end
 
   def test_it_parses_xlsx_files_to_text_from_path
-    assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx"), "Sheet1\nruby 25\nSheet2\njs 35"
+    result = SimpleTextExtract.extract(filepath: "test/fixtures/test_xlsx.xlsx")
+
+    assert_includes "# Sheet Index: 0\n# Sheet Name: Sheet1\nruby 25\n# Sheet Index: 1\n# Sheet Name: Sheet2\njs 35", result
 
     assert_equal "", SimpleTextExtract.extract(tempfile: Tempfile.new(["", "blank.xlsx"]))
   end
 
   def test_it_parses_xlsx_files_to_text_from_tempfile
     result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/test_xlsx.xlsx"))
-    assert_equal "Sheet1\nruby 25\nSheet2\njs 35", result
+
+    assert_equal "# Sheet Index: 0\n# Sheet Name: Sheet1\nruby 25\n# Sheet Index: 1\n# Sheet Name: Sheet2\njs 35", result
   end
 
   def test_it_parses_xlsx_files_to_text_from_raw_excludes_hidden
-    assert_equal SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx")), "Sheet1\nruby 25\nSheet2\njs 35"
+    result = SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_xlsx.xlsx"))
+
+    assert_equal "# Sheet Index: 0\n# Sheet Name: Sheet1\nruby 25\n# Sheet Index: 1\n# Sheet Name: Sheet2\njs 35", result
   end
 
   def test_nil_to_integer
-    assert_equal "bad_link\nTest", SimpleTextExtract.extract(filename: "roo_bad_link.xlsx", raw: File.read("test/fixtures/roo_bad_link.xlsx"))
+    result = SimpleTextExtract.extract(filename: "roo_bad_link.xlsx", raw: File.read("test/fixtures/roo_bad_link.xlsx"))
+
+    assert_equal "# Sheet Index: 0\n# Sheet Name: bad_link\nTest", result
   end
 
   def test_it_parses_xls_files_to_text_from_path
