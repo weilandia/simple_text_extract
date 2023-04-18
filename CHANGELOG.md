@@ -1,5 +1,9 @@
 ## 3.0.1 (2023-04-17)
 
+- Coerces filename in `SimpleTextExtract.supports?(filename:)` to string.
+
+## 3.0.1 (2023-04-17)
+
 - Fixes printing of Roo::Excelx::Cell::Empty for empty rows
 
 ## 3.0.0 (2023-04-14)

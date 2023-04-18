@@ -13,7 +13,7 @@ module SimpleTextExtract
   end
 
   def self.supports?(filename: nil)
-    SUPPORTED_FILETYPES.include?(filename.split(".").last)
+    SUPPORTED_FILETYPES.include?(filename.to_s.split(".").last)
   end
 
   def self.missing_dependency?(command)
