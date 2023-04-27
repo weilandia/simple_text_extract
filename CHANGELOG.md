@@ -1,4 +1,8 @@
-## 3.0.1 (2023-04-17)
+## 3.0.3 (2023-04-27)
+
+- Add support for extracting text from tables in DOCX files.
+
+## 3.0.2 (2023-04-17)
 
 - Coerces filename in `SimpleTextExtract.supports?(filename:)` to string.
 
