@@ -69,6 +69,11 @@ class SimpleTextExtractTest < Minitest::Test
     assert_equal "Test\nLine 3", result
   end
 
+  def test_it_parses_tables_in_docx_files
+    expected = "QTY, Item Name\n0, Row 1\n1, Row 2\n2, Row 3\n3, Row 4\n4, Row 5\n5, Row 6\n6, Row 7\n7, Row 8"
+    assert_equal expected, SimpleTextExtract.extract(filepath: "test/fixtures/text_docx_alt.docx")
+  end
+
   def test_it_parses_pdf_files_to_text_from_path
     assert_includes SimpleTextExtract.extract(filepath: "test/fixtures/test_pdf.pdf"), "This is a small demonstration .pdf file"
   end

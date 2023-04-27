@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SimpleTextExtract::Extract
+class SimpleTextExtract::Extract # rubocop:disable Metrics/ClassLength
   def self.formatter(path)
     case path
     when /.zip$/i
@@ -132,6 +132,13 @@ class SimpleTextExtract::Extract
         doc = Nokogiri::XML(document_xml)
         doc.xpath("//w:document//w:body/w:p").each do |node|
           result << node.text
+        end
+
+        doc.xpath("//w:document//w:body//w:tbl").each do |node|
+          node.xpath(".//w:tr").each do |row|
+            text = row.xpath("w:tc").map(&:text)
+            result << text.join(", ")
+          end
         end
       end
 
