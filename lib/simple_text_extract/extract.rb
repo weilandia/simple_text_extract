@@ -28,7 +28,7 @@ class SimpleTextExtract::Extract # rubocop:disable Metrics/ClassLength
   end
 
   def to_s
-    @to_s ||= extract.to_s.gsub(/[^\S\n]+/, " ").gsub(/\s?\n\s+/, "\n").strip
+    @to_s ||= extract.to_s.scrub.gsub(/[^\S\n]+/, " ").gsub(/\s?\n\s+/, "\n").strip
   end
 
   private

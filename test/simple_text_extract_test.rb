@@ -56,6 +56,11 @@ class SimpleTextExtractTest < Minitest::Test
     assert_includes result, "This is a regular paragraph with the default style of Normal."
   end
 
+  def test_it_parses_doc_files_with_invalid_byte_sequence
+    result = SimpleTextExtract.extract(tempfile: tempfile("test/fixtures/invalid_byte_sequence.doc"))
+    assert_includes result, "State Corporation Commission"
+  end
+
   def test_it_parses_docx_files_to_text_from_path
     assert_equal "Test\nLine 3", SimpleTextExtract.extract(filepath: "test/fixtures/test_docx.docx")
   end
