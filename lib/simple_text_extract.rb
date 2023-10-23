@@ -17,7 +17,7 @@ module SimpleTextExtract
   end
 
   def self.missing_dependency?(command)
-    dependency = `bash -c 'command -v #{command}'`
+    dependency = `sh -c 'command -v #{command}'`
     dependency.nil? || dependency.empty?
   end
 end
