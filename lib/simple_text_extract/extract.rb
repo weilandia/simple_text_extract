@@ -93,7 +93,7 @@ class SimpleTextExtract::Extract # rubocop:disable Metrics/ClassLength
         text << "# Sheet Name: #{name}"
 
         spreadsheet.sheet(name)&.each_row_streaming do |row|
-          text << row.filter(&:present?).join(" ")
+          text << row.map(&:to_s).join(" ")
         end
       end
 
