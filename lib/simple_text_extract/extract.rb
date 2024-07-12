@@ -78,7 +78,7 @@ class SimpleTextExtract::Extract # rubocop:disable Metrics/ClassLength
     def pdf_extract
       return nil if SimpleTextExtract.missing_dependency?("pdftotext")
 
-      `pdftotext #{Shellwords.escape(file.path)} -`
+      `pdftotext #{Shellwords.escape(file.path)} - 2>/dev/null`
     end
 
     def xlsx_extract
