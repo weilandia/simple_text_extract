@@ -87,13 +87,14 @@ class SimpleTextExtract::Extract # rubocop:disable Metrics/ClassLength
       spreadsheet = Roo::Spreadsheet.open(file, only_visible_sheets: true)
 
       text = []
-
       spreadsheet.sheets.each_with_index do |name, i|
         text << "# Sheet Index: #{i}"
         text << "# Sheet Name: #{name}"
 
         spreadsheet.sheet(name)&.each_row_streaming do |row|
-          text << row.map(&:to_s).join(" ")
+          text << row.map do |cell|
+            cell.value.to_s
+          end.join(" ")
         end
       end
 
