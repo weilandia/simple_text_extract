@@ -1,3 +1,7 @@
+## 3.0.6 (2024-07-12)
+
+- Stop depending on Active::Support (#present?)
+
 ## 3.0.3 (2023-04-27)
 
 - Add support for extracting text from tables in DOCX files.
