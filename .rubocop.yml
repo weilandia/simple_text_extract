@@ -111,5 +111,8 @@ Lint/MissingSuper:
 Lint/ConstantDefinitionInBlock:
   Enabled: false
 
+Lint/SuppressedException:
+  Enabled: false
+
 Style/SingleArgumentDig:
   Enabled: false

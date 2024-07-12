@@ -112,6 +112,11 @@ class SimpleTextExtractTest < Minitest::Test
     assert_equal "# Sheet Index: 0\n# Sheet Name: Sheet1\nruby 25\n# Sheet Index: 1\n# Sheet Name: Sheet2\njs 35", result
   end
 
+  def test_it_parses_xlsx_files_to_text_with_complex_text
+    result = SimpleTextExtract.extract(filename: "test_xlsx.xlsx", raw: File.read("test/fixtures/test_file_with_complex_text.xlsx"))
+    assert result.include?("Pricing Template")
+  end
+
   def test_nil_to_integer
     result = SimpleTextExtract.extract(filename: "roo_bad_link.xlsx", raw: File.read("test/fixtures/roo_bad_link.xlsx"))
 
