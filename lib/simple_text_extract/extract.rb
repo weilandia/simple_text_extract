@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "open3"
+
 class SimpleTextExtract::Extract # rubocop:disable Metrics/ClassLength
   def self.formatter(path)
     case path
@@ -78,7 +80,13 @@ class SimpleTextExtract::Extract # rubocop:disable Metrics/ClassLength
     def pdf_extract
       return nil if SimpleTextExtract.missing_dependency?("pdftotext")
 
-      `pdftotext #{Shellwords.escape(file.path)} - 2>/dev/null`
+      stdout, stderr, status = Open3.capture3("pdftotext #{Shellwords.escape(file.path)} -")
+      if status.success?
+        stdout
+      else
+        warn "pdftotext failed: #{stderr}"
+        nil
+      end
     end
 
     def xlsx_extract
@@ -117,7 +125,13 @@ class SimpleTextExtract::Extract # rubocop:disable Metrics/ClassLength
     def doc_extract
       return nil if SimpleTextExtract.missing_dependency?("antiword")
 
-      `antiword #{Shellwords.escape(file.path)}`
+      stdout, stderr, status = Open3.capture3("antiword #{Shellwords.escape(file.path)}")
+      if status.success?
+        stdout
+      else
+        warn "antiword failed: #{stderr}"
+        nil
+      end
     end
 
     def docx_extract
