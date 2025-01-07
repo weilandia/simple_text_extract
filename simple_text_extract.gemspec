@@ -26,9 +26,9 @@ Gem::Specification.new do |spec|
   spec.requirements << "antiword"
   spec.requirements << "pdftotext/poppler"
 
-  spec.add_dependency "roo", "~> 2.10.0"
-  spec.add_dependency "rubyzip", "~> 2.3.2"
-  spec.add_dependency "spreadsheet", "~> 1.3.0"
+  spec.add_dependency "roo", "~> 2.10"
+  spec.add_dependency "rubyzip", "~> 2.3"
+  spec.add_dependency "spreadsheet", "~> 1.3"
   spec.add_dependency "base64"
   spec.add_dependency "csv"
 end
